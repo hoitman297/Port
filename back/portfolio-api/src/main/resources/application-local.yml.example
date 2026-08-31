@@ -1,0 +1,31 @@
+# 실제 값을 채운 뒤 application-local.yml 로 복사해서 사용하세요.
+# application-local.yml 은 .gitignore 로 제외됩니다.
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/portfolio?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: changeme
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:
+  secret: change-me-to-a-long-random-string-at-least-256-bits-for-hs256
+  access-token-expiration-ms: 3600000
+
+# 로컬 개발용 시드 관리자 계정 (local 프로필에서만 최초 1회 생성됨)
+app:
+  admin:
+    username: admin
+    password: change-me
+    email: admin@example.com
+
+storage:
+  provider: s3 # 또는 r2
+  bucket: portfolio-dev-bucket
+  region: ap-northeast-2
+  access-key: CHANGE_ME
+  secret-key: CHANGE_ME
+  endpoint: # R2 사용 시에만 채움, 예: https://<account-id>.r2.cloudflarestorage.com
+  public-base-url: https://CHANGE_ME.example.com

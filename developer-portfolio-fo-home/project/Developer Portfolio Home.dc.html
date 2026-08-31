@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    @keyframes kineticIn { from { opacity: 0; transform: translateY(0.5em); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</helmet>
+
+<div style="min-height:100vh; background:{{bg}}; color:{{fg}}; font-family:'Spoqa Han Sans Neo', -apple-system, sans-serif; transition: background 0.4s ease, color 0.4s ease;">
+
+  <div style="max-width:1120px; margin:0 auto; padding:36px 40px 0; display:flex; justify-content:flex-end;">
+    <button onClick="{{toggleTheme}}" style="all:unset; cursor:pointer; display:flex; align-items:center; gap:8px; padding:7px 14px; border-radius:999px; border:1px solid {{border}}; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.02em; color:{{fgMuted}};">
+      <span style="width:7px; height:7px; border-radius:50%; background:{{accent}}; display:inline-block;"></span>
+      {{themeLabel}}
+    </button>
+  </div>
+
+  <section style="max-width:1120px; margin:0 auto; padding:88px 40px 120px;">
+    <h1 style="margin:0; font-size:clamp(48px,7vw,88px); font-weight:700; line-height:1.05; letter-spacing:-0.02em;">
+      <sc-for list="{{heroNameChars}}" as="c" hint-placeholder-count="3">
+        <span style="display:inline-block; opacity:0; animation: kineticIn 0.7s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc({{c.i}} * {{staggerStep}}ms);">{{c.ch}}</span>
+      </sc-for>
+    </h1>
+    <p style="margin:22px 0 0; font-family:'Space Mono',monospace; font-size:clamp(16px,2.2vw,22px); font-weight:700; letter-spacing:0.01em; color:{{accent}};">
+      <sc-for list="{{heroRoleChars}}" as="c" hint-placeholder-count="17">
+        <span style="display:inline-block; opacity:0; animation: kineticIn 0.6s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc({{c.i}} * {{staggerStep}}ms);">{{c.ch}}</span>
+      </sc-for>
+    </p>
+    <p style="margin:26px 0 0; max-width:480px; font-size:17px; line-height:1.6; color:{{fgMuted}};">{{bioText}}</p>
+  </section>
+
+  <section style="max-width:1120px; margin:0 auto; padding:0 40px 96px;">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:32px; padding-bottom:16px; border-bottom:1px solid {{border}};">
+      <h2 style="margin:0; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:0.12em; color:{{fgMuted}};">PROJECTS</h2>
+      <sc-if value="{{showNotes}}" hint-placeholder-val="{{true}}">
+        <span style="font-family:'Space Mono',monospace; font-size:11px; color:{{fgMuted}}; letter-spacing:0.01em;">scroll trigger — fade + translateY(28→0), stagger {{cardStagger}}ms</span>
+      </sc-if>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:28px;">
+      <sc-for list="{{projects}}" as="project" hint-placeholder-count="2">
+        <div ref="{{project.ref}}" style="opacity:{{project.opacity}}; transform:{{project.enterTransform}}; transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);">
+          <div style="cursor:pointer; border-radius:6px; overflow:hidden; border:1px solid {{border}}; background:{{cardBg}}; transition: transform 0.35s cubic-bezier(.2,.7,.2,1), box-shadow 0.35s ease;" style-hover="transform:scale(1.02); box-shadow:0 28px 56px -16px rgba(0,0,0,0.28);">
+            <image-slot id="{{project.slotId}}" shape="rect" placeholder="{{project.imagePlaceholder}}" style="aspect-ratio:4/3; display:block;"></image-slot>
+            <div style="padding:22px 24px 26px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                <h3 style="margin:0; font-size:19px; font-weight:700;">{{project.title}}</h3>
+                <span style="font-family:'Space Mono',monospace; font-size:12px; color:{{fgMuted}}; transition: transform 0.35s ease;" style-hover="transform:translateX(4px); color:{{accent}};">보기 →</span>
+              </div>
+              <p style="margin:10px 0 16px; font-size:14px; line-height:1.55; color:{{fgMuted}};">{{project.desc}}</p>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <sc-for list="{{project.tags}}" as="tag" hint-placeholder-count="2">
+                  <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.02em; padding:5px 11px; border-radius:999px; background:{{chipBg}}; border:1px solid {{border}}; color:{{fg}};">{{tag}}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1120px; margin:0 auto; padding:0 40px 120px;">
+    <div style="margin-bottom:32px; padding-bottom:16px; border-bottom:1px solid {{border}};">
+      <h2 style="margin:0; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:0.12em; color:{{fgMuted}};">STACK</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:48px;">
+      <sc-for list="{{stackGroups}}" as="group" hint-placeholder-count="2">
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.08em; color:{{fgMuted}}; margin-bottom:14px;">{{group.label}}</div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <sc-for list="{{group.tags}}" as="tag" hint-placeholder-count="3">
+              <span style="font-family:'Space Mono',monospace; font-size:13px; padding:8px 16px; border-radius:999px; background:{{chipBg}}; border:1px solid {{border}}; color:{{fg}};">{{tag}}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;defaultTheme&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;light&quot;, &quot;options&quot;: [&quot;light&quot;, &quot;dark&quot;], &quot;tsType&quot;: &quot;'light' | 'dark'&quot;, &quot;section&quot;: &quot;Behavior&quot; },
+  &quot;motionIntensity&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;standard&quot;, &quot;options&quot;: [&quot;subtle&quot;, &quot;standard&quot;], &quot;tsType&quot;: &quot;'subtle' | 'standard'&quot;, &quot;section&quot;: &quot;Behavior&quot; },
+  &quot;showInteractionNotes&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Behavior&quot; }
+}">
+class Component extends DCLogic {
+  state = {
+    theme: this.props.defaultTheme === 'dark' ? 'dark' : 'light',
+    cardsVisible: [false, false],
+  };
+  card0Ref = React.createRef();
+  card1Ref = React.createRef();
+
+  componentDidMount() {
+    const refs = [this.card0Ref, this.card1Ref];
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const idx = refs.findIndex((r) => r.current === entry.target);
+        if (idx === -1 || !entry.isIntersecting) return;
+        const delay = idx * (this.props.motionIntensity === 'subtle' ? 90 : 140);
+        setTimeout(() => {
+          this.setState((s) => {
+            const next = s.cardsVisible.slice();
+            next[idx] = true;
+            return { cardsVisible: next };
+          });
+        }, delay);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.2 });
+    refs.forEach((r) => r.current && observer.observe(r.current));
+    this._observer = observer;
+  }
+
+  componentWillUnmount() {
+    if (this._observer) this._observer.disconnect();
+  }
+
+  toggleTheme = () => {
+    this.setState((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' }));
+  };
+
+  renderVals() {
+    const isDark = this.state.theme === 'dark';
+    const motion = this.props.motionIntensity ?? 'standard';
+    const showNotes = this.props.showInteractionNotes ?? true;
+
+    const palette = isDark ? {
+      bg: 'oklch(0.17 0.006 300)',
+      fg: 'oklch(0.95 0.004 300)',
+      fgMuted: 'oklch(0.66 0.012 300)',
+      cardBg: 'oklch(0.215 0.008 300)',
+      border: 'oklch(0.32 0.012 300)',
+      accent: 'oklch(0.74 0.14 300)',
+      chipBg: 'oklch(0.26 0.01 300)',
+    } : {
+      bg: 'oklch(0.985 0.003 300)',
+      fg: 'oklch(0.2 0.01 300)',
+      fgMuted: 'oklch(0.48 0.012 300)',
+      cardBg: 'oklch(1 0 0)',
+      border: 'oklch(0.885 0.006 300)',
+      accent: 'oklch(0.52 0.16 300)',
+      chipBg: 'oklch(0.955 0.004 300)',
+    };
+
+    const heroName = '홍길동';
+    const heroRole = 'Backend Developer';
+    const heroNameChars = Array.from(heroName).map((ch, i) => ({ ch, i }));
+    const heroRoleChars = Array.from(heroRole).map((ch, i) => ({
+      ch: ch === ' ' ? '\u00A0' : ch,
+      i: i + heroNameChars.length,
+    }));
+    const staggerStep = motion === 'subtle' ? 22 : 40;
+    const cardStagger = motion === 'subtle' ? 90 : 140;
+
+    const cardsVisible = this.state.cardsVisible;
+    const projectDefs = [
+      {
+        ref: this.card0Ref,
+        slotId: 'project-a-thumb',
+        imagePlaceholder: '포트폴리오 사이트 대표 이미지',
+        title: '포트폴리오 사이트 (FO / BO)',
+        desc: '방문자용 화면과 관리자용 화면을 분리해, 콘텐츠를 직접 등록하고 유지보수할 수 있는 구조로 설계했습니다.',
+        tags: ['Spring Boot', 'JPA', 'MySQL'],
+      },
+      {
+        ref: this.card1Ref,
+        slotId: 'project-b-thumb',
+        imagePlaceholder: '프로젝트 대표 이미지',
+        title: '프로젝트명',
+        desc: '프로젝트 한 줄 요약이 이 자리에 들어갑니다.',
+        tags: ['React', 'Next.js'],
+      },
+    ];
+    const projects = projectDefs.map((p, idx) => ({
+      ...p,
+      opacity: cardsVisible[idx] ? 1 : 0,
+      enterTransform: cardsVisible[idx] ? 'translateY(0)' : 'translateY(28px)',
+    }));
+
+    return {
+      bg: palette.bg,
+      fg: palette.fg,
+      fgMuted: palette.fgMuted,
+      cardBg: palette.cardBg,
+      border: palette.border,
+      accent: palette.accent,
+      chipBg: palette.chipBg,
+      toggleTheme: this.toggleTheme,
+      themeLabel: isDark ? 'Dark' : 'Light',
+      bioText: 'Spring Boot와 React 사이를 오가며, 기능 단위로 문제를 정의하고 해결합니다.',
+      heroNameChars,
+      heroRoleChars,
+      staggerStep,
+      cardStagger,
+      showNotes,
+      projects,
+      stackGroups: [
+        { label: 'BACKEND', tags: ['Spring Boot', 'Spring Data JPA', 'MySQL'] },
+        { label: 'FRONTEND', tags: ['React', 'Next.js', 'anime.js'] },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

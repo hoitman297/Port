@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+  </style>
+</helmet>
+
+<div style="min-height:100vh; background:{{bg}}; color:{{fg}}; font-family:'Spoqa Han Sans Neo', -apple-system, sans-serif; transition: background 0.4s ease, color 0.4s ease;">
+
+  <div style="max-width:1120px; margin:0 auto; padding:36px 40px 0; display:flex; justify-content:space-between; align-items:center;">
+    <a href="#" style="display:inline-flex; align-items:center; gap:8px; white-space:nowrap; font-family:'Space Mono',monospace; font-size:13px; color:{{fgMuted}}; transition: transform 0.3s ease, color 0.3s ease;" style-hover="transform:translateX(-4px); color:{{fg}};">
+      <span>←</span> 뒤로가기
+    </a>
+    <button onClick="{{toggleTheme}}" style="all:unset; cursor:pointer; display:flex; align-items:center; gap:8px; padding:7px 14px; border-radius:999px; border:1px solid {{border}}; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.02em; color:{{fgMuted}};">
+      <span style="width:7px; height:7px; border-radius:50%; background:{{accent}}; display:inline-block;"></span>
+      {{themeLabel}}
+    </button>
+  </div>
+
+  <section style="max-width:720px; margin:0 auto; padding:56px 40px 8px;">
+    <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; color:{{accent}}; margin-bottom:16px;">MAKING OF</div>
+    <h1 style="margin:0 0 20px; font-size:clamp(30px,4vw,44px); font-weight:700; letter-spacing:-0.01em; line-height:1.15;">이 포트폴리오는 어떻게, 왜 이렇게 만들어졌나</h1>
+    <p style="margin:0; font-size:16px; line-height:1.75; color:{{fgMuted}};">{{introText}}</p>
+  </section>
+
+  <section style="max-width:1120px; margin:0 auto; padding:48px 40px 0;">
+    <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; color:{{fgMuted}}; margin-bottom:20px;">ARCHITECTURE</div>
+    <div style="display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; padding:40px 24px; border-radius:8px; background:{{cardBg}}; border:1px solid {{border}};">
+      <sc-for list="{{archNodes}}" as="node" hint-placeholder-count="4">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:6px; min-width:110px;">
+            <div style="font-family:'Space Mono',monospace; font-weight:700; font-size:14px; padding:14px 18px; border-radius:8px; border:1px solid {{border}}; background:{{bg}}; color:{{fg}};">{{node.label}}</div>
+            <div style="font-size:11px; color:{{fgMuted}}; font-family:'Space Mono',monospace;">{{node.sub}}</div>
+          </div>
+          <sc-if value="{{node.hasArrow}}" hint-placeholder-val="{{true}}">
+            <span style="font-family:'Space Mono',monospace; font-size:18px; color:{{fgMuted}};">↔</span>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:720px; margin:0 auto; padding:64px 40px 0;">
+    <sc-for list="{{essaySections}}" as="sec" hint-placeholder-count="4">
+      <div ref="{{sec.ref}}" style="padding-bottom:56px; opacity:{{sec.opacity}}; transform:{{sec.transform}}; transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);">
+        <div style="font-family:'Space Mono',monospace; font-size:12px; color:{{accent}}; margin-bottom:10px;">{{sec.number}}</div>
+        <h2 style="margin:0 0 14px; font-size:22px; font-weight:700;">{{sec.title}}</h2>
+        <sc-for list="{{sec.paragraphs}}" as="p" hint-placeholder-count="2">
+          <p style="margin:0 0 16px; font-size:15.5px; line-height:1.8; color:{{fg}};">{{p}}</p>
+        </sc-for>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="max-width:1120px; margin:0 auto; padding:0 40px 120px; display:flex; gap:12px; flex-wrap:wrap;">
+    <a href="{{links.githubUrl}}" style="font-family:'Space Mono',monospace; font-size:13px; padding:12px 22px; border-radius:999px; border:1px solid {{border}}; color:{{fg}}; transition: border-color 0.3s ease, transform 0.3s ease;" style-hover="border-color:{{accent}}; transform:translateY(-2px);">GitHub ↗</a>
+    <a href="{{links.demoUrl}}" style="font-family:'Space Mono',monospace; font-size:13px; padding:12px 22px; border-radius:999px; background:{{fg}}; color:{{bg}}; transition: transform 0.3s ease, opacity 0.3s ease;" style-hover="transform:translateY(-2px); opacity:0.85;">배포 링크 ↗</a>
+  </section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;defaultTheme&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;light&quot;, &quot;options&quot;: [&quot;light&quot;, &quot;dark&quot;], &quot;tsType&quot;: &quot;'light' | 'dark'&quot;, &quot;section&quot;: &quot;Behavior&quot; }
+}">
+class Component extends DCLogic {
+  sectionDefs = [
+    {
+      title: 'FO와 BO를 나눈 이유',
+      paragraphs: [
+        '방문자가 보는 화면과 콘텐츠를 등록하는 화면을 같은 코드에 두면, 프로젝트를 하나 추가할 때마다 코드를 고쳐야 합니다. 그래서 이 사이트는 방문자용 FO와 관리자용 BO를 처음부터 분리했습니다.',
+        'BO에서 프로젝트, 기능, 트러블슈팅을 등록하면 FO는 API로 그 데이터를 읽어와 보여주기만 합니다. 새 프로젝트를 추가하거나 문구를 고칠 때 배포를 다시 하지 않고 BO에서 바로 반영할 수 있다는 점이 이 구조를 택한 실질적인 이유입니다.',
+      ],
+    },
+    {
+      title: '트러블슈팅을 기능 단위로 관리한 이유',
+      paragraphs: [
+        '처음에는 트러블슈팅을 프로젝트 하나에 통째로 붙이는 구조를 생각했습니다. 하지만 실제로 겪은 문제는 프로젝트 전체가 아니라 특정 기능 하나에서 발생했고, 그 문제를 프로젝트 단위로 뭉쳐서 설명하면 어떤 기능과 관련된 문제인지가 흐려졌습니다.',
+        '그래서 트러블슈팅을 PROJECT가 아닌 PROJECT_FEATURE에 연결했습니다. 기능마다 문제 → 분석 → 실행 → 결과를 독립적으로 기록할 수 있고, 트러블슈팅을 겪지 않은 기능은 그냥 그 카드가 없는 채로 자연스럽게 넘어갑니다. 프로젝트 상세 화면에서 일부 기능에만 트러블슈팅 카드가 붙는 것도 이 결정 때문입니다.',
+      ],
+    },
+    {
+      title: 'Spring Boot, JPA, MySQL을 선택한 이유',
+      paragraphs: [
+        'FO/BO/API로 역할을 나누는 구조에서는 도메인 모델을 명확하게 정의하는 것이 중요했습니다. Spring Boot와 Spring Data JPA는 PROJECT, PROJECT_FEATURE, TROUBLESHOOTING 같은 엔티티 간의 관계를 코드로 명시적으로 표현할 수 있어 이 구조에 맞다고 판단했습니다.',
+        'MySQL은 프로젝트-기능-트러블슈팅처럼 관계가 명확한 데이터를 다루기에 적합했고, 별도의 운영 경험 없이도 안정적으로 붙일 수 있는 선택이었습니다.',
+      ],
+    },
+    {
+      title: 'React와 Next.js를 선택한 이유',
+      paragraphs: [
+        'FO는 방문자가 프로젝트를 훑어보고 상세 화면으로 들어가는 흐름이 중심입니다. 컴포넌트 단위로 화면을 쪼개 프로젝트 카드, 기능 블록, 트러블슈팅 카드를 재사용하기에 React가 자연스러웠습니다.',
+        'Next.js는 초기 로딩 성능과 라우팅을 별도로 신경 쓰지 않아도 되게 해주었고, 프로젝트 상세 페이지처럼 개수가 늘어날 수 있는 화면을 다루기에 적합했습니다.',
+      ],
+    },
+    {
+      title: 'GSAP 대신 anime.js를 선택한 이유',
+      paragraphs: [
+        '이 사이트의 애니메이션은 히어로 텍스트의 글자 스태거와 스크롤에 따라 하나씩 나타나는 기능 블록 정도로, 복잡한 타임라인이 필요하지 않았습니다. GSAP은 강력하지만 이 정도 목적에는 기능이 과했고, 러닝커브도 그만큼 따라왔습니다.',
+        'anime.js는 용량이 가볍고 API가 단순해서, stagger와 opacity·transform 애니메이션 위주로 쓰는 이 사이트의 요구에 더 맞았습니다. 절제된 인터랙션을 유지한다는 디자인 방향과도 맞아떨어지는 선택이었습니다.',
+      ],
+    },
+  ];
+  sectionRefs = this.sectionDefs.map(() => React.createRef());
+
+  state = {
+    theme: this.props.defaultTheme === 'dark' ? 'dark' : 'light',
+    visible: this.sectionDefs.map(() => false),
+  };
+
+  componentDidMount() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const idx = this.sectionRefs.findIndex((r) => r.current === entry.target);
+        if (idx === -1 || !entry.isIntersecting) return;
+        this.setState((s) => {
+          const next = s.visible.slice();
+          next[idx] = true;
+          return { visible: next };
+        });
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.15 });
+    this.sectionRefs.forEach((r) => r.current && observer.observe(r.current));
+    this._observer = observer;
+  }
+
+  componentWillUnmount() {
+    if (this._observer) this._observer.disconnect();
+  }
+
+  toggleTheme = () => {
+    this.setState((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' }));
+  };
+
+  renderVals() {
+    const isDark = this.state.theme === 'dark';
+
+    const palette = isDark ? {
+      bg: 'oklch(0.17 0.006 300)',
+      fg: 'oklch(0.95 0.004 300)',
+      fgMuted: 'oklch(0.66 0.012 300)',
+      cardBg: 'oklch(0.215 0.008 300)',
+      border: 'oklch(0.32 0.012 300)',
+      accent: 'oklch(0.74 0.14 300)',
+      chipBg: 'oklch(0.26 0.01 300)',
+    } : {
+      bg: 'oklch(0.985 0.003 300)',
+      fg: 'oklch(0.2 0.01 300)',
+      fgMuted: 'oklch(0.48 0.012 300)',
+      cardBg: 'oklch(1 0 0)',
+      border: 'oklch(0.885 0.006 300)',
+      accent: 'oklch(0.52 0.16 300)',
+      chipBg: 'oklch(0.955 0.004 300)',
+    };
+
+    const visible = this.state.visible;
+    const essaySections = this.sectionDefs.map((s, idx) => ({
+      ...s,
+      ref: this.sectionRefs[idx],
+      number: String(idx + 1).padStart(2, '0'),
+      opacity: visible[idx] ? 1 : 0,
+      transform: visible[idx] ? 'translateY(0)' : 'translateY(20px)',
+    }));
+
+    const archLabels = [
+      { label: 'FO', sub: 'React · Next.js' },
+      { label: 'API', sub: 'Spring Boot' },
+      { label: 'BO', sub: 'React · Next.js' },
+      { label: 'DB', sub: 'MySQL' },
+    ];
+    const archNodes = archLabels.map((n, i) => ({ ...n, hasArrow: i < archLabels.length - 1 }));
+
+    return {
+      bg: palette.bg,
+      fg: palette.fg,
+      fgMuted: palette.fgMuted,
+      cardBg: palette.cardBg,
+      border: palette.border,
+      accent: palette.accent,
+      chipBg: palette.chipBg,
+      toggleTheme: this.toggleTheme,
+      themeLabel: isDark ? 'Dark' : 'Light',
+      introText: '이 페이지는 프로젝트 하나를 소개하는 대신, 이 사이트 자체를 어떻게 그리고 왜 이런 구조로 만들었는지를 기록합니다.',
+      archNodes,
+      essaySections,
+      links: { githubUrl: '#', demoUrl: '#' },
+    };
+  }
+}
+</script>
+</body>
+</html>

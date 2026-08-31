@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+  </style>
+</helmet>
+
+<div style="min-height:100vh; background:{{bg}}; color:{{fg}}; font-family:'Spoqa Han Sans Neo', -apple-system, sans-serif; transition: background 0.4s ease, color 0.4s ease;">
+
+  <div style="max-width:1120px; margin:0 auto; padding:36px 40px 0; display:flex; justify-content:space-between; align-items:center;">
+    <a href="#" style="display:inline-flex; align-items:center; gap:8px; white-space:nowrap; font-family:'Space Mono',monospace; font-size:13px; color:{{fgMuted}}; transition: transform 0.3s ease, color 0.3s ease;" style-hover="transform:translateX(-4px); color:{{fg}};">
+      <span>←</span> 뒤로가기
+    </a>
+    <button onClick="{{toggleTheme}}" style="all:unset; cursor:pointer; display:flex; align-items:center; gap:8px; padding:7px 14px; border-radius:999px; border:1px solid {{border}}; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.02em; color:{{fgMuted}};">
+      <span style="width:7px; height:7px; border-radius:50%; background:{{accent}}; display:inline-block;"></span>
+      {{themeLabel}}
+    </button>
+  </div>
+
+  <section style="max-width:1120px; margin:0 auto; padding:56px 40px 40px;">
+    <h1 style="margin:0 0 28px; font-size:clamp(32px,4vw,52px); font-weight:700; letter-spacing:-0.01em; line-height:1.1;">{{project.title}}</h1>
+    <image-slot id="project-hero-image" shape="rect" placeholder="프로젝트 대표 이미지" style="width:100%; aspect-ratio:16/8; border-radius:8px; display:block;"></image-slot>
+
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:28px;">
+      <sc-for list="{{project.stack}}" as="tech" hint-placeholder-count="5">
+        <span style="font-family:'Space Mono',monospace; font-size:12px; padding:6px 13px; border-radius:999px; background:{{chipBg}}; border:1px solid {{border}}; color:{{fg}};">{{tech}}</span>
+      </sc-for>
+    </div>
+
+    <p style="margin:28px 0 0; max-width:640px; font-size:16px; line-height:1.7; color:{{fgMuted}};">{{project.overview}}</p>
+  </section>
+
+  <section style="max-width:1120px; margin:0 auto; padding:32px 40px 0;">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:8px; padding-bottom:16px; border-bottom:1px solid {{border}};">
+      <h2 style="margin:0; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:0.12em; color:{{fgMuted}};">FEATURES</h2>
+      <sc-if value="{{showNotes}}" hint-placeholder-val="{{true}}">
+        <span style="font-family:'Space Mono',monospace; font-size:11px; color:{{fgMuted}};">scroll trigger — fade + translateY(20→0), one by one</span>
+      </sc-if>
+    </div>
+
+    <sc-for list="{{features}}" as="f" hint-placeholder-count="3">
+      <div ref="{{f.ref}}" style="padding:56px 0; border-bottom:1px solid {{border}}; opacity:{{f.opacity}}; transform:{{f.transform}}; transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:20px;">
+          <span style="font-family:'Space Mono',monospace; font-size:13px; color:{{accent}};">{{f.number}}</span>
+          <h3 style="margin:0; font-size:22px; font-weight:700;">{{f.title}}</h3>
+        </div>
+        <image-slot id="{{f.slotId}}" shape="rect" placeholder="{{f.imagePlaceholder}}" style="width:100%; aspect-ratio:16/9; border-radius:8px; display:block;"></image-slot>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:32px; margin-top:24px;">
+          <div>
+            <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; color:{{fgMuted}}; margin-bottom:8px;">구현 내용</div>
+            <p style="margin:0; font-size:15px; line-height:1.65; color:{{fg}};">{{f.content}}</p>
+          </div>
+          <div>
+            <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; color:{{fgMuted}}; margin-bottom:8px;">구현 이유</div>
+            <p style="margin:0; font-size:15px; line-height:1.65; color:{{fg}};">{{f.reason}}</p>
+          </div>
+        </div>
+
+        <sc-if value="{{f.hasTroubleshooting}}" hint-placeholder-val="{{false}}">
+          <div style="margin-top:32px; padding:24px; border-radius:8px; background:{{cardBg}}; border:1px solid {{border}};">
+            <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.1em; color:{{fgMuted}}; margin-bottom:18px;">TROUBLESHOOTING</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px;">
+              <sc-for list="{{f.tsCards}}" as="card" hint-placeholder-count="4">
+                <div style="opacity:{{card.opacity}}; transform:{{card.transform}}; transition: opacity 0.5s cubic-bezier(.2,.7,.2,1) {{card.delay}}, transform 0.5s cubic-bezier(.2,.7,.2,1) {{card.delay}};">
+                  <div style="font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:{{accent}}; margin-bottom:8px;">{{card.step}} · {{card.label}}</div>
+                  <p style="margin:0; font-size:13.5px; line-height:1.6; color:{{fgMuted}};">{{card.text}}</p>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="max-width:1120px; margin:0 auto; padding:16px 40px 40px;">
+    <h2 style="margin:0 0 16px; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:0.12em; color:{{fgMuted}}; padding-bottom:16px; border-bottom:1px solid {{border}};">RETROSPECTIVE</h2>
+    <p style="margin:20px 0 0; max-width:640px; font-size:15px; line-height:1.75; color:{{fg}};">{{project.retrospective}}</p>
+  </section>
+
+  <section style="max-width:1120px; margin:0 auto; padding:16px 40px 120px; display:flex; gap:12px; flex-wrap:wrap;">
+    <a href="{{project.githubUrl}}" style="font-family:'Space Mono',monospace; font-size:13px; padding:12px 22px; border-radius:999px; border:1px solid {{border}}; color:{{fg}}; transition: border-color 0.3s ease, transform 0.3s ease;" style-hover="border-color:{{accent}}; transform:translateY(-2px);">GitHub ↗</a>
+    <a href="{{project.demoUrl}}" style="font-family:'Space Mono',monospace; font-size:13px; padding:12px 22px; border-radius:999px; background:{{fg}}; color:{{bg}}; transition: transform 0.3s ease, opacity 0.3s ease;" style-hover="transform:translateY(-2px); opacity:0.85;">배포 링크 ↗</a>
+  </section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;defaultTheme&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;light&quot;, &quot;options&quot;: [&quot;light&quot;, &quot;dark&quot;], &quot;tsType&quot;: &quot;'light' | 'dark'&quot;, &quot;section&quot;: &quot;Behavior&quot; },
+  &quot;motionIntensity&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;standard&quot;, &quot;options&quot;: [&quot;subtle&quot;, &quot;standard&quot;], &quot;tsType&quot;: &quot;'subtle' | 'standard'&quot;, &quot;section&quot;: &quot;Behavior&quot; },
+  &quot;showInteractionNotes&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Behavior&quot; }
+}">
+class Component extends DCLogic {
+  featureDefs = [
+    {
+      slotId: 'feature-1-image',
+      imagePlaceholder: '기능 이미지',
+      title: '기능별 트러블슈팅 조건부 렌더링',
+      content: '트러블슈팅을 PROJECT가 아닌 PROJECT_FEATURE에 연결해, 문제를 겪은 기능에만 데이터가 존재하도록 설계했습니다.',
+      reason: '프로젝트 전체가 아니라 기능 단위로 관리하는 것이 이번 설계의 핵심이었습니다.',
+      troubleshooting: {
+        problem: '트러블슈팅 여부가 프로젝트마다 달라, 겪지 않은 프로젝트에도 빈 카드가 노출됐습니다.',
+        analysis: '트러블슈팅이 PROJECT에 종속되어 있어 기능 단위 유무를 구분할 수 없었습니다.',
+        action: '트러블슈팅 테이블을 PROJECT_FEATURE에 1:N(선택)으로 재연결했습니다.',
+        result: '데이터가 없는 기능은 카드 없이 자연스럽게 렌더링됩니다.',
+      },
+    },
+    {
+      slotId: 'feature-2-image',
+      imagePlaceholder: '기능 이미지',
+      title: '관리자 인증',
+      content: 'JWT 기반 관리자 인증을 구현해 BO 접근을 제한했습니다.',
+      reason: '프로젝트 등록 및 수정 권한을 관리자에게만 부여하기 위해서입니다.',
+      troubleshooting: null,
+    },
+    {
+      slotId: 'feature-3-image',
+      imagePlaceholder: '기능 이미지',
+      title: '기술 스택 삭제 제한',
+      content: '프로젝트에서 참조 중인 기술 스택은 삭제 시 409 응답과 함께 제한했습니다.',
+      reason: '이미 사용 중인 태그가 삭제되면 프로젝트 데이터가 깨지는 것을 막기 위해서입니다.',
+      troubleshooting: {
+        problem: '참조 여부를 확인하지 않고 삭제가 즉시 반영되어 목록 화면에 깨진 태그가 노출됐습니다.',
+        analysis: '삭제 API가 TECH_STACK 단독으로 동작해 PROJECT와의 N:M 관계를 확인하지 않았습니다.',
+        action: '삭제 전 참조 카운트를 조회해, 참조 중이면 409를 반환하도록 수정했습니다.',
+        result: '참조 중인 태그는 관리자 화면에서 삭제가 비활성화되어 안내됩니다.',
+      },
+    },
+  ];
+  featureRefs = this.featureDefs.map(() => React.createRef());
+
+  state = {
+    theme: this.props.defaultTheme === 'dark' ? 'dark' : 'light',
+    visible: this.featureDefs.map(() => false),
+  };
+
+  componentDidMount() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const idx = this.featureRefs.findIndex((r) => r.current === entry.target);
+        if (idx === -1 || !entry.isIntersecting) return;
+        this.setState((s) => {
+          const next = s.visible.slice();
+          next[idx] = true;
+          return { visible: next };
+        });
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.15 });
+    this.featureRefs.forEach((r) => r.current && observer.observe(r.current));
+    this._observer = observer;
+  }
+
+  componentWillUnmount() {
+    if (this._observer) this._observer.disconnect();
+  }
+
+  toggleTheme = () => {
+    this.setState((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' }));
+  };
+
+  renderVals() {
+    const isDark = this.state.theme === 'dark';
+    const showNotes = this.props.showInteractionNotes ?? true;
+    const cardStep = this.props.motionIntensity === 'subtle' ? 70 : 90;
+
+    const palette = isDark ? {
+      bg: 'oklch(0.17 0.006 300)',
+      fg: 'oklch(0.95 0.004 300)',
+      fgMuted: 'oklch(0.66 0.012 300)',
+      cardBg: 'oklch(0.215 0.008 300)',
+      border: 'oklch(0.32 0.012 300)',
+      accent: 'oklch(0.74 0.14 300)',
+      chipBg: 'oklch(0.26 0.01 300)',
+    } : {
+      bg: 'oklch(0.985 0.003 300)',
+      fg: 'oklch(0.2 0.01 300)',
+      fgMuted: 'oklch(0.48 0.012 300)',
+      cardBg: 'oklch(1 0 0)',
+      border: 'oklch(0.885 0.006 300)',
+      accent: 'oklch(0.52 0.16 300)',
+      chipBg: 'oklch(0.955 0.004 300)',
+    };
+
+    const visible = this.state.visible;
+    const features = this.featureDefs.map((f, idx) => {
+      const isVisible = visible[idx];
+      const tsCards = f.troubleshooting ? [
+        { step: '01', label: '문제', text: f.troubleshooting.problem },
+        { step: '02', label: '분석', text: f.troubleshooting.analysis },
+        { step: '03', label: '실행', text: f.troubleshooting.action },
+        { step: '04', label: '결과', text: f.troubleshooting.result },
+      ].map((c, i) => ({
+        ...c,
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(16px)',
+        delay: `${i * cardStep}ms`,
+      })) : [];
+
+      return {
+        ...f,
+        ref: this.featureRefs[idx],
+        number: String(idx + 1).padStart(2, '0'),
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+        hasTroubleshooting: !!f.troubleshooting,
+        tsCards,
+      };
+    });
+
+    return {
+      bg: palette.bg,
+      fg: palette.fg,
+      fgMuted: palette.fgMuted,
+      cardBg: palette.cardBg,
+      border: palette.border,
+      accent: palette.accent,
+      chipBg: palette.chipBg,
+      toggleTheme: this.toggleTheme,
+      themeLabel: isDark ? 'Dark' : 'Light',
+      showNotes,
+      features,
+      project: {
+        title: '포트폴리오 사이트 (FO / BO)',
+        stack: ['Spring Boot', 'Spring Data JPA', 'MySQL', 'React', 'Next.js', 'JWT'],
+        overview: '방문자용 화면(FO)과 관리자용 화면(BO)을 분리해, 콘텐츠를 직접 등록하고 유지보수할 수 있는 구조로 설계했습니다. 기능 단위로 구현 내용과 이유를 기록하고, 트러블슈팅을 겪은 기능에만 별도 카드를 붙여 보여줍니다.',
+        retrospective: '트러블슈팅을 기능 단위로 쪼개면서, 프로젝트를 하나의 완성품이 아니라 여러 결정의 합으로 보여줄 수 있었습니다. 다음에는 기능 간 의존 관계도 함께 기록해보고 싶습니다.',
+        githubUrl: '#',
+        demoUrl: '#',
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
