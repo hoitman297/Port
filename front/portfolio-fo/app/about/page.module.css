@@ -1,0 +1,111 @@
+.intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 40px 8px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.name {
+  margin: 0 0 20px;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.introText {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--fg-muted);
+}
+
+.section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 40px 0;
+}
+
+.contactSection {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 40px 120px;
+}
+
+.sectionTitle {
+  margin: 0 0 24px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--fg-muted);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.period {
+  font-size: 12.5px;
+  color: var(--fg-muted);
+}
+
+.itemTitle {
+  font-size: 15.5px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.itemOrg {
+  font-size: 14px;
+  color: var(--fg-muted);
+  margin-bottom: 8px;
+}
+
+.itemDesc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--fg);
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--border);
+  transition: padding-left 0.25s ease, color 0.25s ease;
+}
+
+.contactRow:hover {
+  padding-left: 10px;
+  color: var(--accent);
+}
+
+.contactLabel {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
+
+.contactValue {
+  font-size: 15px;
+}

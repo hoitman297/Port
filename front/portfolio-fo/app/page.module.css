@@ -1,0 +1,85 @@
+.hero {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 88px 40px 120px;
+}
+
+.heroName {
+  margin: 0;
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.heroRole {
+  margin: 22px 0 0;
+  font-size: clamp(16px, 2.2vw, 22px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+}
+
+.heroBio {
+  margin: 26px 0 0;
+  max-width: 480px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+.section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 40px 96px;
+}
+
+.stackSection {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 40px 120px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--fg-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 28px;
+}
+
+.stackGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 48px;
+}
+
+.stackLabel {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  margin-bottom: 14px;
+}
+
+.stackTags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}

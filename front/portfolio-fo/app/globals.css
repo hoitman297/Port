@@ -1,0 +1,51 @@
+:root[data-theme='light'] {
+  --bg: oklch(0.985 0.003 300);
+  --fg: oklch(0.2 0.01 300);
+  --fg-muted: oklch(0.48 0.012 300);
+  --card-bg: oklch(1 0 0);
+  --border: oklch(0.885 0.006 300);
+  --accent: oklch(0.52 0.16 300);
+  --chip-bg: oklch(0.955 0.004 300);
+}
+
+:root[data-theme='dark'] {
+  --bg: oklch(0.17 0.006 300);
+  --fg: oklch(0.95 0.004 300);
+  --fg-muted: oklch(0.66 0.012 300);
+  --card-bg: oklch(0.215 0.008 300);
+  --border: oklch(0.32 0.012 300);
+  --accent: oklch(0.74 0.14 300);
+  --chip-bg: oklch(0.26 0.01 300);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Spoqa Han Sans Neo', -apple-system, BlinkMacSystemFont,
+    sans-serif;
+  transition: background 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mono {
+  font-family: var(--font-space-mono), monospace;
+}

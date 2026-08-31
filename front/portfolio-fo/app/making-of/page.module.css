@@ -1,0 +1,152 @@
+.intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 40px 8px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.heading {
+  margin: 0 0 20px;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.introText {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--fg-muted);
+}
+
+.archSection {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 40px 0;
+}
+
+.archLabel {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  margin-bottom: 20px;
+}
+
+.archDiagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 40px 24px;
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+}
+
+.archNodeWrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.archNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 110px;
+}
+
+.archNodeLabel {
+  font-weight: 700;
+  font-size: 14px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.archNodeSub {
+  font-size: 11px;
+  color: var(--fg-muted);
+}
+
+.archArrow {
+  font-size: 18px;
+  color: var(--fg-muted);
+}
+
+.essaySection {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 40px 0;
+}
+
+.essayBlock {
+  padding-bottom: 56px;
+}
+
+.essayNumber {
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.essayTitle {
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.essayText {
+  margin: 0 0 16px;
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--fg);
+}
+
+.linksSection {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 40px 120px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.linkBtn {
+  font-size: 13px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.linkBtn:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.linkBtnPrimary {
+  font-size: 13px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.linkBtnPrimary:hover {
+  transform: translateY(-2px);
+  opacity: 0.85;
+}

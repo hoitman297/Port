@@ -1,0 +1,14 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--fg-muted);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.link:hover {
+  transform: translateX(-4px);
+  color: var(--fg);
+}
